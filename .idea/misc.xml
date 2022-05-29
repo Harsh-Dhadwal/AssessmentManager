@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/OneDrive - James Cook University/B-IT/CP3406 - Mobile Computing/Assg_2/AssessmentManager/app/src/main/res/layout/activity_main.xml" value="0.33541666666666664" />
+        <entry key="..\:/OneDrive - James Cook University/B-IT/CP3406 - Mobile Computing/Assg_2/AssessmentManager/app/src/main/res/layout/fragment_list_display.xml" value="0.3536458333333333" />
+        <entry key="..\:/OneDrive - James Cook University/B-IT/CP3406 - Mobile Computing/Assg_2/AssessmentManager/app/src/main/res/layout/list_item.xml" value="0.33541666666666664" />
+        <entry key="..\:/OneDrive - James Cook University/B-IT/CP3406 - Mobile Computing/Assg_2/AssessmentManager/app/src/main/res/layout/task_card.xml" value="0.25833333333333336" />
+        <entry key="..\:/OneDrive - James Cook University/B-IT/CP3406 - Mobile Computing/Assg_2/AssessmentManager/app/src/main/res/layout/test.xml" value="0.33541666666666664" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
