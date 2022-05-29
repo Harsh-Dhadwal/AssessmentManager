@@ -1,10 +1,12 @@
 package au.jcu.edu.assessmentmanager;
 
+//Assessment task object
 public class AssessmentTask {
 
     private int id, status;
     private String subjectCode, assessmentName, dueDate, dueTime;
 
+//    quickly create assessment object
     public void newAssessmentTask(String subjectCode, String assessmentName, String dueDate, String dueTime){
         this.id = 0;
         this.subjectCode = subjectCode;

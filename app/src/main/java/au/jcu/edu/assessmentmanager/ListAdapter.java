@@ -1,12 +1,9 @@
 package au.jcu.edu.assessmentmanager;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +15,7 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private List<AssessmentTask> mList;
-    private MainActivity activity;
-    private DatabaseHelper myDB;
+    private final DatabaseHelper myDB;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final CardView view;
@@ -30,8 +26,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
     }
 
-    ListAdapter(DatabaseHelper myDB , MainActivity activity) {
-        this.activity = activity;
+    ListAdapter(DatabaseHelper myDB) {
         this.myDB = myDB;
     }
 
@@ -74,10 +69,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         return num!=0;
     }
 
-    public Context getContext(){
-        return activity;
-    }
-
+    @SuppressLint("NotifyDataSetChanged")
     public void setTasks(List<AssessmentTask> mList){
         this.mList = mList;
         notifyDataSetChanged();
@@ -89,22 +81,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         mList.remove(position);
         notifyItemRemoved(position);
     }
-
-//    public void editItem(int position){
-//        AssessmentTask item = mList.get(position);
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("id" , item.getId());
-//        bundle.putString("assessmentName" , item.getAssessmentName());
-//        bundle.putString("dueDate" , item.getDueDate());
-//        bundle.putString("dueTime" , item.getDueTime());
-//
-//        AddNewAssessment task = new AddNewAssessment();
-//        task.setArguments(bundle);
-//        task.show(activity.getSupportFragmentManager() , task.getTag());
-//
-//
-//    }
 
     @Override
     public int getItemCount() {

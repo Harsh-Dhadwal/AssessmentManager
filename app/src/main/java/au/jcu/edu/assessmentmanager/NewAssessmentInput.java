@@ -1,115 +1,49 @@
 package au.jcu.edu.assessmentmanager;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class NewAssessmentInput extends BottomSheetDialogFragment {
-
-    public static final String TAG = "AddNewTask";
+public class NewAssessmentInput extends AppCompatActivity {
 
     //widgets
-    private EditText mEditText;
-    private Button mSaveButton;
+    private EditText taskInput, subjectInput, dateInput, timeInput;
 
     private DatabaseHelper myDb;
 
-    public static AddNewAssessment newInstance(){
-        return new AddNewAssessment();
-    }
-
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_new_assessment_input , container , false);
-        return v;
-    }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_new_assessment_input);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        taskInput = findViewById(R.id.taskInput);
+        subjectInput = findViewById(R.id.subjectInput);
+        dateInput = findViewById(R.id.dateInput);
+        timeInput = findViewById(R.id.timeInput);
+        Button saveButton = findViewById(R.id.saveBtn);
 
-        mEditText = view.findViewById(R.id.edittext);
-        mSaveButton = view.findViewById(R.id.button_save);
+        myDb = new DatabaseHelper(getApplicationContext());
 
-        myDb = new DatabaseHelper(getActivity());
+        saveButton.setOnClickListener(v -> {
+            String task = taskInput.getText().toString();
+            String subject = subjectInput.getText().toString();
+            String date = dateInput.getText().toString();
+            String time = timeInput.getText().toString();
 
-        boolean isUpdate = false;
-
-        final Bundle bundle = getArguments();
-        if (bundle != null){
-            isUpdate = true;
-            String task = bundle.getString("task");
-            mEditText.setText(task);
-
-            if (task.length() > 0 ){
-                mSaveButton.setEnabled(false);
+            if (task.isEmpty() || subject.isEmpty() || date.isEmpty() || time.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please fill in all fields!!!!", Toast.LENGTH_SHORT).show();
+            } else {
+                AssessmentTask assessmentTask = new AssessmentTask();
+                assessmentTask.newAssessmentTask(subject, task, date, time);
+                myDb.insertAssessment(assessmentTask);
             }
-
-        }
-        mEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().equals("")){
-                    mSaveButton.setEnabled(false);
-                    mSaveButton.setBackgroundColor(Color.GRAY);
-                }else{
-                    mSaveButton.setEnabled(true);
-                    mSaveButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
         });
-        final boolean finalIsUpdate = isUpdate;
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = mEditText.getText().toString();
-
-                if (finalIsUpdate){
-                    myDb.updateTask(bundle.getInt("id") , text);
-                }else{
-                    ToDoModel item = new ToDoModel();
-                    item.setTask(text);
-                    item.setStatus(0);
-                    myDb.insertTask(item);
-                }
-                dismiss();
-
-            }
-        });
-    }
-
-    @Override
-    public void onDismiss(@NonNull DialogInterface dialog) {
-        super.onDismiss(dialog);
-        Activity activity = getActivity();
-        if (activity instanceof OnDialogCloseListner){
-            ((OnDialogCloseListner)activity).onDialogClose(dialog);
-        }
     }
 }

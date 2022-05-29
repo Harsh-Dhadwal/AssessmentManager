@@ -2,4 +2,12 @@
     <string name="app_name">AssessmentManager</string>
     <string name="appTitle">Assessments</string>
     <string name="add_task">Add Task</string>
+    <string name="add_assessment_task">Add Assessment Task</string>
+    <string name="task">Task</string>
+    <string name="subject">Subject</string>
+    <string name="date">Date</string>
+    <string name="_01_05_2020">01/05/2020</string>
+    <string name="time">Time</string>
+    <string name="_23_59">23:59</string>
+    <string name="save">Save</string>
 </resources>

@@ -50,12 +50,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+//    Clear database in during testing
     public void clearAll(){
         db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
+//    add assessment object to database
     public void insertAssessment(AssessmentTask assessment) {
         db = this.getWritableDatabase();
 
@@ -77,11 +79,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME , values , "ID=?" , new String[]{String.valueOf(id)});
     }
 
+//    delete object from database
     public void deleteTask(int id ){
         db = this.getWritableDatabase();
         db.delete(TABLE_NAME , "ID=?" , new String[]{String.valueOf(id)});
     }
 
+//    retrieve data from database
     @SuppressLint("Range")
     public List<AssessmentTask> getAllTasks(){
 
