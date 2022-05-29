@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AssessmentManager</string>
     <string name="appTitle">Assessments</string>
+    <string name="add_task">Add Task</string>
 </resources>

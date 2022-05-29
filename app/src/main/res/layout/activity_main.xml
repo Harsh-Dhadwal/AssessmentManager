@@ -29,9 +29,8 @@
             android:layout_height="match_parent"
             android:src="@drawable/add_box_white_24dp"
             android:scaleX="2"
-            android:scaleY="2"/>
-
-
+            android:scaleY="2"
+            android:contentDescription="@string/add_task" />
     </LinearLayout>
 
 
